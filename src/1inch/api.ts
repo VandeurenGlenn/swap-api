@@ -107,14 +107,14 @@ export class OneInchApi {
     return this._fetch(URL)
   }
 
-  approve = async (chainId, address, amount?) => {
+  approve = async (chainId, tokenAddress, amount?) => {
     if (!amount) amount = '100000000000'
-    const URL = `${this.BASE_URL}/${chainId}/approve/transaction?tokenAddress=${address}&amount=${amount}`
+    const URL = `${this.BASE_URL}/${chainId}/approve/transaction?tokenAddress=${tokenAddress}&amount=${amount}`
     return this._fetch(URL)
   }
 
-  allowance = async (chainId, address, spender) => {
-    const URL = `${this.BASE_URL}/${chainId}/approve/allowance?tokenAddress=${address}&walletAddress=${spender}`
+  allowance = async (chainId, tokenAddress, spender) => {
+    const URL = `${this.BASE_URL}/${chainId}/approve/allowance?tokenAddress=${tokenAddress}&walletAddress=${spender}`
     return this._fetch(URL)
   }
 }
