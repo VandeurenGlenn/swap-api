@@ -9,6 +9,9 @@
       "types": "./dist/api.d.ts"
     }
   },
+  "files": [
+    "./dist"
+  ],
   "scripts": {
     "build": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
