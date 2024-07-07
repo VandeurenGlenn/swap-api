@@ -76,7 +76,7 @@ export class OneInchApi {
     const URL = `${this.BASE_URL}/${chainId}/quote`
     if (fee && Number(fee) < this.feeAmount) {
       fee = this.feeAmount
-    }
+    } else if (!fee) fee = this.feeAmount
     return this._fetch(
       `${URL}?src=${tokenIn}&dst=${tokenOut}&amount=${amount}&fee=${fee}&includeProtocols=true&includeGas=true`
     )
@@ -94,7 +94,7 @@ export class OneInchApi {
     const URL = `${this.BASE_URL}/${chainId}/swap`
     if (fee && Number(fee) < this.feeAmount) {
       fee = this.feeAmount
-    }
+    } else if (!fee) fee = this.feeAmount
     return this._fetch(
       `${URL}?src=${tokenIn}&dst=${tokenOut}&amount=${amount}&from=${from}&origin=${from}&fee=${fee}&slippage=${
         slippage ?? this.defaultSlippage
@@ -104,7 +104,7 @@ export class OneInchApi {
 
   routerAddres = async (chainId) => {
     const URL = `${this.BASE_URL}/${chainId}/approve/spender`
-    return this._fetch(URL)
+    return (await this._fetch(URL)).address
   }
 
   approve = async (chainId, tokenAddress, amount?) => {
