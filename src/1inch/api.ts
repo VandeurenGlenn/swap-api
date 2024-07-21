@@ -96,8 +96,8 @@ export class OneInchApi {
       fee = this.feeAmount
     } else if (!fee) fee = this.feeAmount
     return this._fetch(
-      `${URL}?src=${tokenIn}&dst=${tokenOut}&amount=${amount}&from=${from}&origin=${from}&fee=${fee}&slippage=${
-        slippage ?? this.defaultSlippage
+      `${URL}?src=${tokenIn}&dst=${tokenOut}&amount=${amount}&from=${from}&origin=${from}&fee=${Number(fee)}&slippage=${
+        Number(slippage) ?? this.defaultSlippage
       }&referrer=${this.referrer}&includeProtocols=true&includeGas=true`
     )
   }
