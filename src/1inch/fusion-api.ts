@@ -28,8 +28,8 @@ export declare type QuoteResult = {
   protocols: { name: string; part: number; fromToken: string; toToken: string }[]
 }
 
-export class OneInchApi {
-  referrer = '0xB899bFbA1b4819854F002c56DB545Aa9d696d9e4'
+export class OneInchFusionApi {
+  referrer = '0x43dc92966581F9Af14E4aE886A892DE4Aa53c19A'
 
   feeAmount = 1
 
@@ -72,13 +72,13 @@ export class OneInchApi {
     return (await this._fetch(URL)).tokens
   }
 
-  quote = async (chainId: number, tokenIn, tokenOut, amount, fee?): Promise<QuoteResult> => {
+  quote = async (chainId: number, tokenIn, tokenOut, amount, walletAddress, fee?): Promise<QuoteResult> => {
     const URL = `${this.BASE_URL}/${chainId}/quote`
     if (fee && Number(fee) < this.feeAmount) {
       fee = this.feeAmount
     } else if (!fee) fee = this.feeAmount
     return this._fetch(
-      `${URL}?src=${tokenIn}&dst=${tokenOut}&amount=${amount}&fee=${fee}&includeProtocols=true&includeGas=true`
+      `${URL}?fromTokenAddress=${tokenIn}&toTokenAddress=${tokenOut}&amount=${amount}&fee=${fee}&walletAddress=${walletAddress}`
     )
   }
 
@@ -96,8 +96,8 @@ export class OneInchApi {
       fee = this.feeAmount
     } else if (!fee) fee = this.feeAmount
     return this._fetch(
-      `${URL}?src=${tokenIn}&dst=${tokenOut}&amount=${amount}&from=${from}&origin=${from}&fee=${Number(fee)}&slippage=${
-        Number(slippage) ?? this.defaultSlippage
+      `${URL}?src=${tokenIn}&dst=${tokenOut}&amount=${amount}&from=${from}&origin=${from}&fee=${fee}&slippage=${
+        slippage ?? this.defaultSlippage
       }&referrer=${this.referrer}&includeProtocols=true&includeGas=true`
     )
   }
